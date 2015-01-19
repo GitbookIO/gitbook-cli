@@ -12,13 +12,21 @@ config.init();
 
 program
 	.version(pkg.version)
- 	.option('-v, --gitbook', 'specify GitBook version to use');
+ 	.option('-v, --gitbook [version]', 'specify GitBook version to use');
 
 program
 	.command('help')
 	.description('list commands for a specific version of gitbook')
 	.action(function(){
+		var gitbook = versions.require(program.gitbook);
+		if (!gitbook) {
+			console.log("Version", program.gitbook, "not found");
+			process.exit(1);
+		}
 
+		_.each(gitbook.commands, function(command) {
+			console.log('    ', command.name, '    ', command.description);
+		});
 	});
 
 program

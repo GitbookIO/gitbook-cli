@@ -12,12 +12,28 @@ config.init();
 
 program
 	.version(pkg.version)
- 	.option('-v, --gitbook', 'Specify GitBook version to use');
+ 	.option('-v, --gitbook', 'specify GitBook version to use');
+
+program
+	.command('help')
+	.description('list commands for a specific version of gitbook')
+	.action(function(){
+
+	});
+
+program
+	.command('*')
+	.description('run a command with a specific gitbook version')
+	.action(function(env){
+
+	});
 
 program.on('--help', function(){
-	console.log('  Versions Installed:');
+	var _versions = versions.list();
+
+	console.log('  Versions Installed (default is '+_.last(_versions).version+'):');
 	console.log('');
-	console.log('    ', _.pluck(versions.list(), "version").join(", "));
+	console.log('    ', _.pluck(_versions, "version").join(", "));
 	console.log('');
 });
 

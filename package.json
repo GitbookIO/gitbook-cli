@@ -1,0 +1,38 @@
+{
+    "name": "gitbook-cli",
+    "version": "0.0.0",
+    "homepage": "https://www.gitbook.com",
+    "description": "CLI to generate books using gitbook",
+    "main": "lib/index.js",
+    "dependencies": {
+        "q": "1.0.1",
+        "lodash": "2.4.1",
+        "semver": "2.2.1",
+        "npmi": "0.1.1",
+        "tmp": "0.0.23",
+        "mkdirp": "0.5.0",
+        "commander": "2.6.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/GitbookIO/gitbook-cli.git"
+    },
+    "author": "FriendCode Inc. <contact@gitbook.com>",
+    "license": "Apache 2",
+    "bugs": {
+        "url": "https://github.com/GitbookIO/gitbook-cli/issues"
+    },
+    "bin": {
+        "gitbook": "./bin/gitbook.js"
+    },
+    "contributors": [
+        {
+            "name": "Aaron O'Mullan",
+            "email": "aaron@gitbook.com"
+        },
+        {
+            "name": "Samy Pessé",
+            "email": "samy@gitbook.com"
+        }
+    ]
+}

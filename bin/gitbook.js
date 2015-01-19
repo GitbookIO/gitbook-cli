@@ -37,7 +37,7 @@ program
 		var gitbook = getGitBook();
 
 		_.each(gitbook.commands, function(command) {
-			console.log('    ', command.name, '    ', command.description);
+			console.log('    ', command.name, '\t', command.description);
 		});
 	});
 
@@ -56,7 +56,9 @@ program
 		}
 
 		command.exec(args, kwargs)
-		.fail(function(err) {
+		.then(function() {
+			process.exit(0);
+		}, function(err) {
 			console.log(err.message || err);
 			if (program.debug) console.log(err.stack || "");
 			process.exit(1);

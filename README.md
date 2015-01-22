@@ -1,8 +1,14 @@
-# GitBook CLI
+# gitbook-cli [![NPM version](https://badge.fury.io/js/gitbook-cli.svg)](http://badge.fury.io/js/gitbook-cli)
 
-[![NPM version](https://badge.fury.io/js/gitbook-cli.svg)](http://badge.fury.io/js/gitbook-cli)
+> The GitBook command line interface.
 
-The GitBook CLI is only supported by version `>=2.0.0` of GitBook.
+Install this globally and you'll have access to the gitbook command anywhere on your system.
+
+```
+$ npm install -g gitbook-cli
+```
+
+**Note:** The job of the gitbook command is to load and run the version of GitBook you have specified in your book (or the latest one), irrespective of its version. The GitBook CLI only support versions `>=2.0.0` of GitBook.
 
 ## How to install it?
 

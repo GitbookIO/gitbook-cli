@@ -9,19 +9,6 @@ var pkg = require("../package.json");
 var config = require("../lib/config");
 var versions = require("../lib/versions");
 
-function getGitBook() {
-	var gitbook = versions.require(program.gitbook);
-	if (!gitbook) {
-		console.log("Version", program.gitbook, "not found");
-		process.exit(1);
-	}
-	if (!gitbook.commands) {
-		console.log("Version", program.gitbook, "is invalid");
-		process.exit(1);
-	}
-	return gitbook;
-};
-
 function runPromise(p) {
 	return p
 	.then(function() {
@@ -39,6 +26,7 @@ config.init();
 
 program
 	.version(pkg.version)
+	.option('-v, --gitbook [version]', 'specify GitBook version to use', 'latest')
  	.option('-d, --debug', 'enable verbose error');
 
 program
@@ -69,39 +57,36 @@ program
 
 program
 	.command('help')
-	.option('-v, --gitbook [version]', 'specify GitBook version to use', 'latest')
 	.description('list commands for a specific version of gitbook')
 	.action(function(){
-		var gitbook = getGitBook();
-
-		_.each(gitbook.commands, function(command) {
-			console.log('    ', command.name, '\t', command.description);
-		});
+		runPromise(
+			versions.get(program.gitbook)
+			.then(function(gitbook) {
+				_.each(gitbook.commands, function(command) {
+					console.log('    ', command.name, '\t', command.description);
+				});
+			})
+		);
 	});
 
 program
 	.command('*')
-	.option('-v, --gitbook [version]', 'specify GitBook version to use', 'latest')
 	.description('run a command with a specific gitbook version')
 	.action(function(commandName){
 		var args = parsedArgv._.slice(1);
 		var kwargs = _.omit(parsedArgv, '$0', '_');
 
-		var gitbook = getGitBook();
-		var command = _.find(gitbook.commands, {'name': commandName});
-		if (!command) {
-			console.log("Command", commandName, "doesn't exist");
-			process.exit(1);
-		}
+		runPromise(
+			versions.get(program.gitbook)
+			.then(function(gitbook) {
+				var command = _.find(gitbook.commands, {'name': commandName});
+				if (!command) {
+					throw "Command "+commandName+" doesn't exist";
+				}
 
-		command.exec(args, kwargs)
-		.then(function() {
-			process.exit(0);
-		}, function(err) {
-			console.log(err.message || err);
-			if (program.debug) console.log(err.stack || "");
-			process.exit(1);
-		});
+				return command.exec(args, kwargs);
+			})
+		);
 	});
 
 program.on('--help', function(){

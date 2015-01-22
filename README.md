@@ -39,3 +39,17 @@ By default, GitBook CLI will read the gitbook version to use from the book confi
 ```
 $ gitbook build ./mybook --gitbook=2.0.1
 ```
+
+#### Manage versions
+
+Pre-install a specific version:
+
+```
+$ gitbook install 2.1.0
+```
+
+Uninstall a specific version
+
+```
+$ gitbook uninstall 2.0.1
+```

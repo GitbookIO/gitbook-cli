@@ -10,10 +10,9 @@
         "semver": "2.2.1",
         "npmi": "0.1.1",
         "tmp": "0.0.23",
-        "mkdirp": "0.5.0",
         "commander": "2.6.0",
-        "gitbook": "2.0.0",
-        "optimist": "0.6.1"
+        "optimist": "0.6.1",
+        "fs-extra": "0.15.0"
     },
     "repository": {
         "type": "git",

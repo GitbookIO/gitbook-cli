@@ -48,6 +48,12 @@ $ gitbook build ./mybook --gitbook=2.0.1
 
 #### Manage versions
 
+List installed versions:
+
+```
+$ gitbook versions
+```
+
 Pre-install a specific version:
 
 ```

@@ -30,6 +30,23 @@ program
  	.option('-d, --debug', 'enable verbose error');
 
 program
+	.command('versions')
+	.description('list installed versions')
+	.action(function(){
+		var _versions = versions.list();
+
+		if (_versions.length > 0) {
+			console.log('Versions Installed:');
+			console.log('');
+			console.log('    ', _.pluck(_versions, "version").join(", "));
+			console.log('');
+		} else {
+			console.log('There is no versions installed');
+			console.log('You can instal the latest version using: "gitbook install latest"');
+		}
+	});
+
+program
 	.command('install [version]')
 	.description('force install a specific version of gitbook')
 	.action(function(version){
@@ -88,15 +105,6 @@ program
 			})
 		);
 	});
-
-program.on('--help', function(){
-	var _versions = versions.list();
-
-	console.log('  Versions Installed:');
-	console.log('');
-	console.log('    ', _.pluck(_versions, "version").join(", "));
-	console.log('');
-});
 
 // Parse and fallback to help if no args
 if(_.isEmpty(program.parse(process.argv).args) && process.argv.length === 2) {

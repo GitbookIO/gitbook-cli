@@ -9,6 +9,7 @@ var parsedArgv = require('optimist').argv;
 var pkg = require("../package.json");
 var config = require("../lib/config");
 var versions = require("../lib/versions");
+var commands = require("../lib/commands");
 
 function runPromise(p) {
 	return p
@@ -93,11 +94,8 @@ program
 	.action(function(){
 		runPromise(
 			versions.get(program.gitbook)
-			.then(function(gitbook) {
-				_.each(gitbook.commands, function(command) {
-					console.log('    ', command.name, '\t', command.description);
-				});
-			})
+			.get("commands")
+			.then(commands.help)
 		);
 	});
 
@@ -111,12 +109,7 @@ program
 		runPromise(
 			versions.get(program.gitbook)
 			.then(function(gitbook) {
-				var command = _.find(gitbook.commands, {'name': commandName});
-				if (!command) {
-					throw "Command "+commandName+" doesn't exist";
-				}
-
-				return command.exec(args, kwargs);
+				return commands.exec(gitbook.commands, commandName, args, kwargs);
 			})
 		);
 	});

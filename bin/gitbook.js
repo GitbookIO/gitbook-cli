@@ -2,6 +2,7 @@
 
 var Q = require("q");
 var _ = require("lodash");
+var path = require("path");
 var program = require('commander');
 var parsedArgv = require('optimist').argv;
 
@@ -47,7 +48,7 @@ program
 	});
 
 program
-	.command('install [version]')
+	.command('version:install [version]')
 	.description('force install a specific version of gitbook')
 	.action(function(version){
 		version = version || "latest";
@@ -61,7 +62,21 @@ program
 	});
 
 program
-	.command('uninstall [version]')
+	.command('version:link [version] [folder]')
+	.description('link a version to a local folder')
+	.action(function(version, folder) {
+		folder = path.resolve(folder || process.cwd());
+
+		runPromise(
+			versions.link(version, folder)
+			.then(function() {
+				console.log("Version", version, "point to", folder);
+			})
+		);
+	});
+
+program
+	.command('version:uninstall [version]')
 	.description('uninstall a specific version of gitbook')
 	.action(function(version){
 		runPromise(

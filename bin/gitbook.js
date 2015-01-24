@@ -28,7 +28,7 @@ config.init();
 
 program
 	.version(pkg.version)
-	.option('-v, --gitbook [version]', 'specify GitBook version to use', 'latest')
+	.option('-v, --gitbook [version]', 'specify GitBook version to use')
  	.option('-d, --debug', 'enable verbose error');
 
 program

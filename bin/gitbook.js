@@ -5,6 +5,7 @@ var _ = require("lodash");
 var path = require("path");
 var program = require('commander');
 var parsedArgv = require('optimist').argv;
+var color = require('bash-color');
 
 var pkg = require("../package.json");
 var config = require("../lib/config");
@@ -16,7 +17,8 @@ function runPromise(p) {
 	.then(function() {
 		process.exit(0);
 	}, function(err) {
-		console.log("Error:", err.message || err);
+		console.log("");
+		console.log(color.red("Error: "+(err.message || err)));
 		if (program.debug) console.log(err.stack || "");
 		process.exit(1);
 	});
@@ -57,7 +59,8 @@ program
 		runPromise(
 			versions.install(version)
 			.then(function(installedVersion) {
-				console.log("Version", installedVersion, "has been installed");
+				console.log("");
+				console.log(color.green("Version "+installedVersion+" has been installed"));
 			})
 		);
 	});
@@ -71,7 +74,8 @@ program
 		runPromise(
 			versions.link(version, folder)
 			.then(function() {
-				console.log("Version", version, "point to", folder);
+				console.log("");
+				console.log(color.green("Version "+version+" point to "+folder));
 			})
 		);
 	});
@@ -83,7 +87,8 @@ program
 		runPromise(
 			versions.uninstall(version)
 			.then(function() {
-				console.log("Version", version, "has been uninstalled");
+				console.log("");
+				console.log(color.green("Version "+version+" has been uninstalled"));
 			})
 		);
 	});

@@ -13,7 +13,8 @@
         "commander": "2.6.0",
         "optimist": "0.6.1",
         "fs-extra": "0.15.0",
-        "semver": "2.2.1"
+        "semver": "2.2.1",
+        "bash-color": "0.0.3"
     },
     "repository": {
         "type": "git",

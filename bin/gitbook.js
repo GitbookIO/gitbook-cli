@@ -19,7 +19,7 @@ function runPromise(p) {
 	}, function(err) {
 		console.log("");
 		console.log(color.red("Error: "+(err.message || err)));
-		if (program.debug) console.log(err.stack || "");
+		if (program.debug || process.env.DEBUG) console.log(err.stack || "");
 		process.exit(1);
 	});
 }

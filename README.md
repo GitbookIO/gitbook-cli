@@ -38,12 +38,23 @@ Build and serve the book:
 $ gitbook serve ./
 ```
 
+List all available commands using:
+```
+$ gitbook help
+```
+
 #### Specify a specific version
 
 By default, GitBook CLI will read the gitbook version to use from the book configuration, but you can force a specific version using `--gitbook` option:
 
 ```
 $ gitbook build ./mybook --gitbook=2.0.1
+```
+
+and list available commands in this version using:
+
+```
+$ gitbook help --gitbook=2.0.1
 ```
 
 #### Manage versions

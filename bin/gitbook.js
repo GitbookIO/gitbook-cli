@@ -46,7 +46,7 @@ program
 			console.log('');
 		} else {
 			console.log('There is no versions installed');
-			console.log('You can instal the latest version using: "gitbook install latest"');
+			console.log('You can instal the latest version using: "gitbook version:install latest"');
 		}
 	});
 

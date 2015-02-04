@@ -52,11 +52,11 @@ program
 	});
 
 program
-	.command('versions:current')
+	.command('versions:print')
 	.description('print current version to use in the current directory')
 	.action(function(){
 		runPromise(
-			versions.current()
+			versions.current(program.gitbook)
 			.then(function(v) {
 				console.log("Current version is", v);
 			})

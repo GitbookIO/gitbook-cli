@@ -52,6 +52,18 @@ program
 	});
 
 program
+	.command('versions:current')
+	.description('print current version to use in the current directory')
+	.action(function(){
+		runPromise(
+			versions.current()
+			.then(function(v) {
+				console.log("Current version is", v);
+			})
+		);
+	});
+
+program
 	.command('versions:available')
 	.description('list available versions on NPM')
 	.action(function(){

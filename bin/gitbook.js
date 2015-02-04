@@ -47,7 +47,7 @@ program
 			console.log('');
 		} else {
 			console.log('There is no versions installed');
-			console.log('You can instal the latest version using: "gitbook version:install latest"');
+			console.log('You can instal the latest version using: "gitbook versions:install latest"');
 		}
 	});
 
@@ -73,7 +73,7 @@ program
 	});
 
 program
-	.command('version:install [version]')
+	.command('versions:install [version]')
 	.description('force install a specific version of gitbook')
 	.action(function(version){
 		version = version || "*";
@@ -88,7 +88,7 @@ program
 	});
 
 program
-	.command('version:link [version] [folder]')
+	.command('versions:link [version] [folder]')
 	.description('link a version to a local folder')
 	.action(function(version, folder) {
 		folder = path.resolve(folder || process.cwd());
@@ -103,7 +103,7 @@ program
 	});
 
 program
-	.command('version:uninstall [version]')
+	.command('versions:uninstall [version]')
 	.description('uninstall a specific version of gitbook')
 	.action(function(version){
 		runPromise(

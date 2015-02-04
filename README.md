@@ -74,17 +74,17 @@ $ gitbook versions:available
 Install a specific version:
 
 ```
-$ gitbook version:install 2.1.0
+$ gitbook versions:install 2.1.0
 ```
 
 Uninstall a specific version
 
 ```
-$ gitbook version:uninstall 2.0.1
+$ gitbook versions:uninstall 2.0.1
 ```
 
 Use a local folder as a GitBook version (for developement)
 
 ```
-$ gitbook version:link 2.0.1-alpha ./mygitbook
+$ gitbook versions:link 2.0.1-alpha ./mygitbook
 ```

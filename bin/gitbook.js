@@ -33,6 +33,7 @@ program
 	.option('-v, --gitbook [version]', 'specify GitBook version to use')
  	.option('-d, --debug', 'enable verbose error');
 
+
 program
 	.command('versions')
 	.description('list installed versions')
@@ -48,6 +49,27 @@ program
 			console.log('There is no versions installed');
 			console.log('You can instal the latest version using: "gitbook version:install latest"');
 		}
+	});
+
+program
+	.command('versions:available')
+	.description('list available versions on NPM')
+	.action(function(){
+		runPromise(
+			versions.available()
+			.then(function(available) {
+				console.log('Available Versions:');
+				console.log('');
+				console.log('    ', available.versions.join(", "));
+				console.log('');
+				console.log('Tags:');
+				console.log('');
+				_.each(available.tags, function(version, tagName) {
+					console.log('    ', tagName, ":", version);
+				});
+				console.log('');
+			})
+		);
 	});
 
 program

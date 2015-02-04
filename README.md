@@ -65,7 +65,13 @@ List installed versions:
 $ gitbook versions
 ```
 
-Pre-install a specific version:
+List available versions:
+
+```
+$ gitbook versions:available
+```
+
+Install a specific version:
 
 ```
 $ gitbook version:install 2.1.0

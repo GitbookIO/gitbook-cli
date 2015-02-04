@@ -76,7 +76,7 @@ program
 	.command('version:install [version]')
 	.description('force install a specific version of gitbook')
 	.action(function(version){
-		version = version || "latest";
+		version = version || "*";
 
 		runPromise(
 			versions.install(version)

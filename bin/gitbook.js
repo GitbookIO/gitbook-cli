@@ -18,7 +18,7 @@ function runPromise(p) {
 		process.exit(0);
 	}, function(err) {
 		console.log("");
-		console.log(color.red("Error: "+(err.message || err)));
+		console.log(color.red(err.toString()));
 		if (program.debug || process.env.DEBUG) console.log(err.stack || "");
 		process.exit(1);
 	});

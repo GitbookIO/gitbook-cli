@@ -15,7 +15,8 @@
         "fs-extra": "0.15.0",
         "semver": "2.2.1",
         "bash-color": "0.0.3",
-        "npm": "2.4.1"
+        "npm": "2.4.1",
+        "user-home": "1.1.1"
     },
     "repository": {
         "type": "git",

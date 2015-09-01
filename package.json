@@ -5,25 +5,24 @@
     "description": "CLI to generate books using gitbook",
     "main": "lib/index.js",
     "dependencies": {
-        "q": "1.0.1",
-        "lodash": "2.4.1",
-        "semver": "2.2.1",
-        "npmi": "0.1.1",
-        "tmp": "0.0.23",
-        "commander": "2.6.0",
+        "q": "1.4.1",
+        "lodash": "3.10.1",
+        "semver": "5.0.1",
+        "npmi": "1.0.1",
+        "tmp": "0.0.27",
+        "commander": "2.8.1",
         "optimist": "0.6.1",
-        "fs-extra": "0.15.0",
-        "semver": "2.2.1",
+        "fs-extra": "0.24.0",
         "bash-color": "0.0.3",
-        "npm": "2.4.1",
-        "user-home": "1.1.1"
+        "npm": "2.14.1",
+        "user-home": "2.0.0"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/GitbookIO/gitbook-cli.git"
     },
     "author": "FriendCode Inc. <contact@gitbook.com>",
-    "license": "Apache 2",
+    "license": "Apache-2.0",
     "bugs": {
         "url": "https://github.com/GitbookIO/gitbook-cli/issues"
     },

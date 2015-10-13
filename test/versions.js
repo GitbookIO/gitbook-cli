@@ -81,14 +81,14 @@ describe('Versions', function() {
             var result = versions.list();
             result.should.have.lengthOf(2);
             result[0].should.have.properties('version', 'path');
-            result[0].version.should.equal('latest');
+            result[0].tag.should.equal('latest');
             result[0].link.should.equal(localGitbook);
         });
 
         it('should correctly return latest version as default one', function() {
             return versions.current()
             .then(function(version) {
-                version.should.equal('latest');
+                version.tag.should.equal('latest');
             });
         });
     });

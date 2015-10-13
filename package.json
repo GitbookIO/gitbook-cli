@@ -2,7 +2,7 @@
     "name": "gitbook-cli",
     "version": "0.3.6",
     "homepage": "https://www.gitbook.com",
-    "description": "CLI to generate books using gitbook",
+    "description": "CLI to generate books and documentation using gitbook",
     "main": "lib/index.js",
     "dependencies": {
         "q": "1.4.1",
@@ -16,6 +16,13 @@
         "bash-color": "0.0.3",
         "npm": "2.14.1",
         "user-home": "2.0.0"
+    },
+    "devDependencies": {
+        "mocha": "2.3.3",
+        "should": "7.1.0"
+    },
+    "scripts": {
+        "test": "rm -rf ./test/gitbook; mocha --reporter spec --recursive --bail"
     },
     "repository": {
         "type": "git",

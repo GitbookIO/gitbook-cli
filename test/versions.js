@@ -93,6 +93,17 @@ describe('Versions', function() {
         });
     });
 
+    describe('versions.get()', function() {
+        it('should correctly return gitbook instance', function() {
+            return versions.get()
+            .then(function(gitbook) {
+                gitbook.should.be.an.Object();
+                gitbook.should.have.properties('commands');
+                gitbook.commands.should.be.an.Array();
+            });
+        });
+    });
+
     describe('versions.uninstall()', function() {
         it('should correctly remove a specific version', function() {
             return versions.uninstall('2.0.0')

@@ -44,8 +44,8 @@ program
             console.log('GitBook Versions Installed:');
             console.log('');
             _.each(_versions,function(v) {
-                var text = v.version;
-                if (v.link) text = text + ' (-> ' + v.link+')';
+                var text = v.tag;
+                if (v.link) text = text + ' (-> ' + v.link+' = '+v.version+')';
 
                 console.log('   ', text);
             });
@@ -63,7 +63,7 @@ program
         runPromise(
             versions.current(program.gitbook)
             .then(function(v) {
-                console.log("GitBook version is", v);
+                console.log("GitBook version is", v.version);
             })
         );
     });

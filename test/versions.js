@@ -3,7 +3,10 @@ var should = require('should');
 
 var versions = require('../lib/versions');
 
+
+
 describe('Versions', function() {
+    this.timeout(50000);
 
     describe('versions.available()', function() {
         var result;
@@ -27,7 +30,6 @@ describe('Versions', function() {
     });
 
     describe('versions.install()', function() {
-        this.timeout(50000);
         var result;
 
         before(function() {
@@ -40,6 +42,16 @@ describe('Versions', function() {
         it('should correctly return the installed version', function() {
             result.should.be.a.String();
             result.should.equal('2.0.0');
+        });
+    });
+
+    describe('versions.current()', function() {
+        it('should correctly return installed version', function() {
+            return versions.current()
+            .then(function(v) {
+                v.should.have.properties('version', 'path');
+                v.version.should.equal('2.0.0');
+            });
         });
     });
 
@@ -59,7 +71,6 @@ describe('Versions', function() {
     });
 
     describe('versions.link()', function() {
-        this.timeout(50000);
         var localGitbook = path.resolve(__dirname, '../node_modules/gitbook');
 
         before(function() {
@@ -73,18 +84,30 @@ describe('Versions', function() {
             result[0].version.should.equal('latest');
             result[0].link.should.equal(localGitbook);
         });
+
+        it('should correctly return latest version as default one', function() {
+            return versions.current()
+            .then(function(version) {
+                version.should.equal('latest');
+            });
+        });
     });
 
     describe('versions.uninstall()', function() {
-        this.timeout(50000);
-
-        before(function() {
-            return versions.uninstall('2.0.0');
+        it('should correctly remove a specific version', function() {
+            return versions.uninstall('2.0.0')
+            .then(function() {
+                var result = versions.list();
+                result.should.have.lengthOf(1);
+            });
         });
 
-        it('should correctly remove the version', function() {
-            var result = versions.list();
-            result.should.have.lengthOf(0);
+        it('should correctly remove a version by tag', function() {
+            return versions.uninstall('latest')
+            .then(function() {
+                var result = versions.list();
+                result.should.have.lengthOf(0);
+            });
         });
     });
 });

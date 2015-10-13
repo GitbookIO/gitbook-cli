@@ -27,4 +27,4 @@ node_modules
 # vim swapfile
 *.swp
 
-test/gitbook
+.tmp

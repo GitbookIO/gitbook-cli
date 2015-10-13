@@ -14,7 +14,7 @@
         "optimist": "0.6.1",
         "fs-extra": "0.24.0",
         "bash-color": "0.0.3",
-        "npm": "2.14.1",
+        "npm": "2.14.8",
         "user-home": "2.0.0"
     },
     "devDependencies": {

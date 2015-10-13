@@ -43,7 +43,12 @@ program
         if (_versions.length > 0) {
             console.log('GitBook Versions Installed:');
             console.log('');
-            console.log('    ', _.pluck(_versions, "version").join(", "));
+            _.each(_versions,function(v) {
+                var text = v.version;
+                if (v.link) text = text + ' (-> ' + v.link+')';
+
+                console.log('   ', text);
+            });
             console.log('');
         } else {
             console.log('There is no versions installed');
@@ -100,10 +105,11 @@ program
     });
 
 program
-    .command('versions:link [version] [folder]')
+    .command('versions:link [folder] [version]')
     .description('link a version to a local folder')
-    .action(function(version, folder) {
+    .action(function(folder, version) {
         folder = path.resolve(folder || process.cwd());
+        version = version || 'latest';
 
         runPromise(
             versions.link(version, folder)

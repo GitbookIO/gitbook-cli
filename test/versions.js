@@ -1,10 +1,7 @@
-var _ = require('lodash');
+var path = require('path');
 var should = require('should');
 
-
-
 var versions = require('../lib/versions');
-
 
 describe('Versions', function() {
 
@@ -61,6 +58,23 @@ describe('Versions', function() {
         });
     });
 
+    describe('versions.link()', function() {
+        this.timeout(50000);
+        var localGitbook = path.resolve(__dirname, '../node_modules/gitbook');
+
+        before(function() {
+            return versions.link('latest', localGitbook);
+        });
+
+        it('should correctly list latest version', function() {
+            var result = versions.list();
+            result.should.have.lengthOf(2);
+            result[0].should.have.properties('version', 'path');
+            result[0].version.should.equal('latest');
+            result[0].link.should.equal(localGitbook);
+        });
+    });
+
     describe('versions.uninstall()', function() {
         this.timeout(50000);
 
@@ -68,10 +82,9 @@ describe('Versions', function() {
             return versions.uninstall('2.0.0');
         });
 
-        it('should correctly return the uninstalled version', function() {
+        it('should correctly remove the version', function() {
             var result = versions.list();
             result.should.have.lengthOf(0);
         });
     });
-
 });

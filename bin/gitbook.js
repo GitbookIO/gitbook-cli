@@ -63,7 +63,7 @@ program
         runPromise(
             versions.current(program.gitbook)
             .then(function(v) {
-                console.log("GitBook version is", v.version);
+                console.log("GitBook version is", v.tag, (v.tag != v.version? '('+v.version+')' : ''));
             })
         );
     });

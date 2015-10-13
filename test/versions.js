@@ -1,6 +1,8 @@
 var _ = require('lodash');
 var should = require('should');
 
+
+
 var versions = require('../lib/versions');
 
 
@@ -26,4 +28,37 @@ describe('Versions', function() {
             result.tags.should.have.properties('latest');
         });
     });
+
+    describe('versions.install()', function() {
+        this.timeout(50000);
+        var result;
+
+        before(function() {
+            return versions.install('2.0.0')
+            .then(function(version) {
+                result = version;
+            });
+        });
+
+        it('should correctly return the installed version', function() {
+            result.should.be.a.String();
+            result.should.equal('2.0.0');
+        });
+    });
+
+    describe('versions.list()', function() {
+        var result;
+
+        before(function() {
+            result = versions.list();
+        });
+
+        it('should correctly return the installed version', function() {
+            result.should.be.an.Array();
+            result.should.have.lengthOf(1);
+            result[0].should.have.properties('version', 'path');
+            result[0].version.should.equal('2.0.0');
+        });
+    });
+
 });

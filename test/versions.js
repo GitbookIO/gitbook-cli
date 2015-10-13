@@ -61,4 +61,17 @@ describe('Versions', function() {
         });
     });
 
+    describe('versions.uninstall()', function() {
+        this.timeout(50000);
+
+        before(function() {
+            return versions.uninstall('2.0.0');
+        });
+
+        it('should correctly return the uninstalled version', function() {
+            var result = versions.list();
+            result.should.have.lengthOf(0);
+        });
+    });
+
 });

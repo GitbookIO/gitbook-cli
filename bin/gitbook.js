@@ -47,7 +47,7 @@ program
                 var text = v.tag;
                 if (v.link) text = text + ' (-> ' + v.link+' = '+v.version+')';
 
-                console.log('   ', text);
+                console.log('   ', v.latest? '*' : ' ', text);
             });
             console.log('');
         } else {

@@ -79,6 +79,16 @@ Install a specific version:
 
 ```
 $ gitbook versions:install 2.1.0
+
+# or a pre-release
+
+$ gitbook versions:install beta
+```
+
+Update to the latest version
+
+```
+$ gitbook versions:update
 ```
 
 Uninstall a specific version
@@ -90,5 +100,5 @@ $ gitbook versions:uninstall 2.0.1
 Use a local folder as a GitBook version (for developement)
 
 ```
-$ gitbook versions:link 2.0.1-alpha ./mygitbook
+$ gitbook versions:link ./mygitbook
 ```

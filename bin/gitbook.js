@@ -134,6 +134,23 @@ program
     });
 
 program
+    .command('versions:update [tag]')
+    .description('update to the latest version of gitbook')
+    .action(function(tag){
+        runPromise(
+            versions.update(tag)
+            .then(function(version) {
+                if (!version) {
+                    console.log("No update found!");
+                } else {
+                    console.log("");
+                    console.log(color.green("GitBook has been updated to "+version));
+                }
+            })
+        );
+    });
+
+program
     .command('help')
     .description('list commands for a specific version of gitbook')
     .action(function(){

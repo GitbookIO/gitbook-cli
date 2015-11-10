@@ -52,7 +52,7 @@ program
             console.log('');
         } else {
             console.log('There is no versions installed');
-            console.log('You can instal the latest version using: "gitbook versions:install latest"');
+            console.log('You can install the latest version using: "gitbook versions:install latest"');
         }
     });
 

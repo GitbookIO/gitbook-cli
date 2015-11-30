@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "homepage": "https://www.gitbook.com",
     "description": "CLI to generate books and documentation using gitbook",
-    "main": "lib/index.js",
+    "main": "bin/gitbook.js",
     "dependencies": {
         "q": "1.4.1",
         "lodash": "3.10.1",

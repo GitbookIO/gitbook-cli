@@ -12,7 +12,9 @@ Install this globally and you'll have access to the gitbook command anywhere on 
 $ npm install -g gitbook-cli
 ```
 
-**Note:** The job of the gitbook command is to load and run the version of GitBook you have specified in your book (or the latest one), irrespective of its version. The GitBook CLI only support versions `>=2.0.0` of GitBook.
+**Note:** The purpose of the gitbook command is to load and run the version of GitBook you have specified in your book (or the latest one), irrespective of its version. The GitBook CLI only support versions `>=2.0.0` of GitBook.
+
+`gitbook-cli` store GitBook's versions into `~/.gitbook`, you can set the `GITBOOK_DIR` environment variable to use another directory.
 
 ## How to install it?
 

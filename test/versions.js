@@ -92,9 +92,9 @@ describe('Versions', function() {
         });
     });
 
-    describe('.load()', function() {
+    describe('.ensureAndLoad()', function() {
         it('should correctly return gitbook instance', function() {
-            return manager.load(__dirname)
+            return manager.ensureAndLoad(__dirname)
             .then(function(gitbook) {
                 gitbook.should.be.an.Object();
                 gitbook.should.have.properties('commands');

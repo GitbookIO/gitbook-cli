@@ -1,32 +1,34 @@
 #! /usr/bin/env node
 
-var Q = require("q");
-var _ = require("lodash");
-var path = require("path");
+var Q = require('q');
+var _ = require('lodash');
+var path = require('path');
 var program = require('commander');
 var parsedArgv = require('optimist').argv;
 var color = require('bash-color');
 
-var pkg = require("../package.json");
-var config = require("../lib/config");
-var versions = require("../lib/versions");
-var commands = require("../lib/commands");
+var pkg = require('../package.json');
+var manager = require('../lib');
+var commands = require('../lib/commands');
+
+// Which book is concerned?
+var bookRoot = parsedArgv._[1] || process.cwd();
 
 function runPromise(p) {
     return p
     .then(function() {
         process.exit(0);
     }, function(err) {
-        console.log("");
+        console.log('');
         console.log(color.red(err.toString()));
-        if (program.debug || process.env.DEBUG) console.log(err.stack || "");
+        if (program.debug || process.env.DEBUG) console.log(err.stack || '');
         process.exit(1);
     });
 }
 
 
 // Init gitbook-cli
-config.init();
+manager.init();
 
 program
     .version(pkg.version)
@@ -35,54 +37,57 @@ program
 
 
 program
-    .command('versions')
-    .description('list installed versions')
+    .command('ls')
+    .description('List versions installed locally')
     .action(function(){
-        var _versions = versions.list();
+        var versions = manager.versions();
 
-        if (_versions.length > 0) {
+        if (versions.length > 0) {
             console.log('GitBook Versions Installed:');
             console.log('');
-            _.each(_versions,function(v) {
-                var text = v.tag;
-                if (v.link) text = text + ' (-> ' + v.link+' = '+v.version+')';
 
-                console.log('   ', v.latest? '*' : ' ', text);
+            _.each(versions,function(v, i) {
+                var text = v.name;
+                if (v.name != v.version) text += ' [' + v.version + ']';
+                if (v.link) text = text + ' (alias of ' + v.link + ')';
+
+                console.log('   ', i == 0? '*' : ' ', text);
             });
             console.log('');
         } else {
             console.log('There is no versions installed');
-            console.log('You can install the latest version using: "gitbook versions:install latest"');
+            console.log('You can install the latest version using: "gitbook fetch"');
         }
     });
 
 program
-    .command('versions:print')
-    .description('print current version to use in the current directory')
+    .command('current')
+    .description('Display currently activated version')
     .action(function(){
         runPromise(
-            versions.current(program.gitbook)
+            manager.ensure(bookRoot, program.gitbook)
             .then(function(v) {
-                console.log("GitBook version is", v.tag, (v.tag != v.version? '('+v.version+')' : ''));
+                console.log('GitBook version is', v.name, (v.name != v.version? '('+v.version+')' : ''));
+                console.log('Run "gitbook update" to update to the latest version.');
             })
         );
     });
 
 program
-    .command('versions:available')
-    .description('list available versions on NPM')
+    .command('ls-remote')
+    .description('List remote versions available for install')
     .action(function(){
         runPromise(
-            versions.available()
+            manager.available()
             .then(function(available) {
                 console.log('Available GitBook Versions:');
                 console.log('');
-                console.log('    ', available.versions.join(", "));
+                console.log('    ', available.versions.join(', '));
                 console.log('');
                 console.log('Tags:');
                 console.log('');
                 _.each(available.tags, function(version, tagName) {
-                    console.log('    ', tagName, ":", version);
+                    console.log('    ', tagName, ':', version);
                 });
                 console.log('');
             })
@@ -90,61 +95,59 @@ program
     });
 
 program
-    .command('versions:install [version]')
-    .description('force install a specific version of gitbook')
+    .command('fetch [version]')
+    .description('Download and install a <version>')
     .action(function(version){
-        version = version || "*";
+        version = version || '*';
 
         runPromise(
-            versions.install(version)
+            manager.install(version)
             .then(function(installedVersion) {
-                console.log("");
-                console.log(color.green("GitBook "+installedVersion+" has been installed"));
+                console.log('');
+                console.log(color.green('GitBook '+installedVersion+' has been installed'));
             })
         );
     });
 
 program
-    .command('versions:link [folder] [version]')
-    .description('link a version to a local folder')
+    .command('alias [folder] [version]')
+    .description('Set an alias named <version> pointing to <folder>')
     .action(function(folder, version) {
         folder = path.resolve(folder || process.cwd());
         version = version || 'latest';
 
         runPromise(
-            versions.link(version, folder)
+            manager.link(version, folder)
             .then(function() {
-                console.log("");
-                console.log(color.green("GitBook "+version+" point to "+folder));
+                console.log(color.green('GitBook '+version+' point to '+folder));
             })
         );
     });
 
 program
-    .command('versions:uninstall [version]')
-    .description('uninstall a specific version of gitbook')
+    .command('uninstall [version]')
+    .description('Uninstall a version')
     .action(function(version){
         runPromise(
-            versions.uninstall(version)
+            manager.uninstall(version)
             .then(function() {
-                console.log("");
-                console.log(color.green("GitBook "+version+" has been uninstalled"));
+                console.log(color.green('GitBook '+version+' has been uninstalled.'));
             })
         );
     });
 
 program
-    .command('versions:update [tag]')
-    .description('update to the latest version of gitbook')
+    .command('update [tag]')
+    .description('Update to the latest version of GitBook')
     .action(function(tag){
         runPromise(
-            versions.update(tag)
+            manager.update(tag)
             .then(function(version) {
                 if (!version) {
-                    console.log("No update found!");
+                    console.log('No update found!');
                 } else {
-                    console.log("");
-                    console.log(color.green("GitBook has been updated to "+version));
+                    console.log('');
+                    console.log(color.green('GitBook has been updated to '+version));
                 }
             })
         );
@@ -152,11 +155,11 @@ program
 
 program
     .command('help')
-    .description('list commands for a specific version of gitbook')
+    .description('List commands for GitBook')
     .action(function(){
         runPromise(
-            versions.get(program.gitbook)
-            .get("commands")
+            manager.ensureAndLoad(bookRoot, program.gitbook)
+            .get('commands')
             .then(commands.help)
         );
     });
@@ -169,7 +172,7 @@ program
         var kwargs = _.omit(parsedArgv, '$0', '_');
 
         runPromise(
-            versions.get(program.gitbook)
+            manager.ensureAndLoad(bookRoot, program.gitbook)
             .then(function(gitbook) {
                 return commands.exec(gitbook.commands, commandName, args, kwargs);
             })

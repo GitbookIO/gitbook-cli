@@ -12,7 +12,9 @@ Install this globally and you'll have access to the gitbook command anywhere on 
 $ npm install -g gitbook-cli
 ```
 
-**Note:** The job of the gitbook command is to load and run the version of GitBook you have specified in your book (or the latest one), irrespective of its version. The GitBook CLI only support versions `>=2.0.0` of GitBook.
+**Note:** The purpose of the gitbook command is to load and run the version of GitBook you have specified in your book (or the latest one), irrespective of its version. The GitBook CLI only support versions `>=2.0.0` of GitBook.
+
+`gitbook-cli` store GitBook's versions into `~/.gitbook`, you can set the `GITBOOK_DIR` environment variable to use another directory.
 
 ## How to install it?
 
@@ -24,23 +26,9 @@ $ npm install -g gitbook-cli
 
 #### Build and Serve
 
-Build a book in the curent directory using:
+### Run GitBook
 
-```
-$ gitbook build
-```
-
-Build a book in another directory:
-
-```
-$ gitbook build ./other_folder
-```
-
-Build and serve the book:
-
-```
-$ gitbook serve ./
-```
+Run command `gitbook build`, `gitbook serve` (read [GitBook documentation](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md) for details).
 
 List all available commands using:
 ```
@@ -66,39 +54,39 @@ $ gitbook help --gitbook=2.0.1
 List installed versions:
 
 ```
-$ gitbook versions
+$ gitbook ls
 ```
 
-List available versions:
+List available versions on NPM:
 
 ```
-$ gitbook versions:available
+$ gitbook ls-remote
 ```
 
 Install a specific version:
 
 ```
-$ gitbook versions:install 2.1.0
+$ gitbook fetch 2.1.0
 
 # or a pre-release
 
-$ gitbook versions:install beta
+$ gitbook fetch beta
 ```
 
 Update to the latest version
 
 ```
-$ gitbook versions:update
+$ gitbook update
 ```
 
 Uninstall a specific version
 
 ```
-$ gitbook versions:uninstall 2.0.1
+$ gitbook uninstall 2.0.1
 ```
 
 Use a local folder as a GitBook version (for developement)
 
 ```
-$ gitbook versions:link ./mygitbook
+$ gitbook alias ./mygitbook latest
 ```

@@ -8,9 +8,7 @@ var parsedArgv = require('optimist').argv;
 var color = require('bash-color');
 
 var pkg = require('../package.json');
-var config = require('../lib/config');
 var manager = require('../lib');
-var registry = require('../lib/registry');
 var commands = require('../lib/commands');
 
 // Which book is concerned?
@@ -30,7 +28,7 @@ function runPromise(p) {
 
 
 // Init gitbook-cli
-config.init();
+manager.init();
 
 program
     .version(pkg.version)

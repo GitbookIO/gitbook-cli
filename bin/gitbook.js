@@ -47,6 +47,7 @@ program
         if (versions.length > 0) {
             console.log('GitBook Versions Installed:');
             console.log('');
+
             _.each(versions,function(v, i) {
                 var text = v.name;
                 if (v.name != v.version) text += ' [' + v.version + ']';
@@ -120,7 +121,6 @@ program
         runPromise(
             manager.link(version, folder)
             .then(function() {
-                console.log('');
                 console.log(color.green('GitBook '+version+' point to '+folder));
             })
         );
@@ -160,7 +160,7 @@ program
     .description('List commands for GitBook')
     .action(function(){
         runPromise(
-            manager.load(program.gitbook)
+            manager.ensureAndLoad(bookRoot, program.gitbook)
             .get('commands')
             .then(commands.help)
         );
@@ -174,7 +174,7 @@ program
         var kwargs = _.omit(parsedArgv, '$0', '_');
 
         runPromise(
-            manager.load(program.gitbook)
+            manager.ensureAndLoad(bookRoot, program.gitbook)
             .then(function(gitbook) {
                 return commands.exec(gitbook.commands, commandName, args, kwargs);
             })

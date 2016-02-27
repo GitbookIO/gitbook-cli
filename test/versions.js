@@ -3,8 +3,6 @@ var should = require('should');
 
 var versions = require('../lib/versions');
 
-
-
 describe('Versions', function() {
     this.timeout(50000);
 

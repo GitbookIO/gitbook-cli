@@ -54,6 +54,7 @@ program
                 console.log('   ', i == 0? '*' : ' ', text);
             });
             console.log('');
+            console.log('Run "gitbook update" to update to the latest version.');
         } else {
             console.log('There is no versions installed');
             console.log('You can install the latest version using: "gitbook fetch"');
@@ -68,7 +69,6 @@ program
             manager.ensure(bookRoot, program.gitbook)
             .then(function(v) {
                 console.log('GitBook version is', v.name, (v.name != v.version? '('+v.version+')' : ''));
-                console.log('Run "gitbook update" to update to the latest version.');
             })
         );
     });

@@ -51,6 +51,14 @@ describe('Versions', function() {
                 v.version.should.equal('2.0.0');
             });
         });
+
+        it('should correctly install version specified', function() {
+            return manager.ensure(path.resolve(__dirname, 'fixtures/book1'))
+            .then(function(v) {
+                v.should.have.properties('version', 'path');
+                v.version.should.equal('3.0.0-pre.2');
+            });
+        });
     });
 
     describe('.list()', function() {
@@ -62,9 +70,11 @@ describe('Versions', function() {
 
         it('should correctly return the installed version', function() {
             result.should.be.an.Array();
-            result.should.have.lengthOf(1);
+            result.should.have.lengthOf(2);
             result[0].should.have.properties('name', 'tag', 'version', 'path');
-            result[0].version.should.equal('2.0.0');
+            result[0].version.should.equal('3.0.0-pre.2');
+            result[1].should.have.properties('name', 'tag', 'version', 'path');
+            result[1].version.should.equal('2.0.0');
         });
     });
 
@@ -77,11 +87,11 @@ describe('Versions', function() {
 
         it('should correctly list latest version', function() {
             var result = manager.versions();
-            result.should.have.lengthOf(2);
-            result[0].should.have.properties('version', 'path');
-            result[0].tag.should.equal('beta');
-            result[0].name.should.equal('latest');
-            result[0].link.should.equal(localGitbook);
+            result.should.have.lengthOf(3);
+            result[1].should.have.properties('version', 'path');
+            result[1].tag.should.equal('beta');
+            result[1].name.should.equal('latest');
+            result[1].link.should.equal(localGitbook);
         });
 
         it('should correctly return latest version as default one', function() {
@@ -108,7 +118,7 @@ describe('Versions', function() {
             return manager.uninstall('2.0.0')
             .then(function() {
                 var result = manager.versions();
-                result.should.have.lengthOf(1);
+                result.should.have.lengthOf(2);
             });
         });
 
@@ -116,7 +126,7 @@ describe('Versions', function() {
             return manager.uninstall('latest')
             .then(function() {
                 var result = manager.versions();
-                result.should.have.lengthOf(0);
+                result.should.have.lengthOf(1);
             });
         });
     });

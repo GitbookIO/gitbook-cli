@@ -9,6 +9,7 @@ var color = require('bash-color');
 
 var pkg = require('../package.json');
 var manager = require('../lib');
+var tags = require('../lib/tags');
 var commands = require('../lib/commands');
 
 // Which book is concerned?
@@ -69,6 +70,20 @@ program
             manager.ensure(bookRoot, program.gitbook)
             .then(function(v) {
                 console.log('GitBook version is', v.name, (v.name != v.version? '('+v.version+')' : ''));
+            })
+        );
+    });
+
+program
+    .command('ensure [condition]')
+    .description('Validate that the version for book match another condition')
+    .action(function(condition){
+        runPromise(
+            manager.ensure(bookRoot)
+            .then(function(v) {
+                if (!tags.satisfies(v.version, condition)) {
+                    throw new Error('Version "' + v.version + '" required by this book doesn\'t match condition "' + condition + '"')
+                }
             })
         );
     });

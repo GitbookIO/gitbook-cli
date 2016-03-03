@@ -75,11 +75,11 @@ program
     });
 
 program
-    .command('ensure [condition]')
+    .command('ensure [condition] [folder]')
     .description('Validate that the version for book match another condition')
-    .action(function(condition){
+    .action(function(condition, folder){
         runPromise(
-            manager.ensure(bookRoot)
+            manager.ensure(folder || process.cwd())
             .then(function(v) {
                 if (!tags.satisfies(v.version, condition)) {
                     throw new Error('Version "' + v.version + '" required by this book doesn\'t match condition "' + condition + '"')

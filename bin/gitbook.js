@@ -79,11 +79,15 @@ program
     .description('Validate that the version for book match another condition')
     .action(function(condition, folder){
         runPromise(
-            manager.ensure(folder || process.cwd())
+            manager.ensure(folder || process.cwd(), null, {
+                install: false
+            })
             .then(function(v) {
                 if (!tags.satisfies(v.version, condition)) {
                     throw new Error('Version "' + v.version + '" required by this book doesn\'t match condition "' + condition + '"')
                 }
+            }, function() {
+                throw new Error('Version required by this book doesn\'t match "' + condition + '"');
             })
         );
     });

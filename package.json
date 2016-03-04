@@ -1,6 +1,6 @@
 {
     "name": "gitbook-cli",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "homepage": "https://www.gitbook.com",
     "description": "CLI to generate books and documentation using gitbook",
     "main": "bin/gitbook.js",

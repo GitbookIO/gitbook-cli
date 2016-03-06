@@ -90,3 +90,10 @@ Use a local folder as a GitBook version (for developement)
 ```
 $ gitbook alias ./mygitbook latest
 ```
+
+### Resolve
+
+- Look for the `book.json` and use `gitbook` field to resolve versions to use
+- Use latest version installed locally
+    - `3.0.0-pre.1` will be used in favor of `2.6.7` by default
+    - Tags `pre`, `alpha`, `beta`, `latest` will always be used first

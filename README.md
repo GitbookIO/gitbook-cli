@@ -24,8 +24,6 @@ $ npm install -g gitbook-cli
 
 ## How to use it?
 
-#### Build and Serve
-
 ### Run GitBook
 
 Run command `gitbook build`, `gitbook serve` (read [GitBook documentation](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md) for details).
@@ -91,9 +89,3 @@ Use a local folder as a GitBook version (for developement)
 $ gitbook alias ./mygitbook latest
 ```
 
-### Resolve
-
-- Look for the `book.json` and use `gitbook` field to resolve versions to use
-- Use latest version installed locally
-    - `3.0.0-pre.1` will be used in favor of `2.6.7` by default
-    - Tags `pre`, `alpha`, `beta`, `latest` will always be used first

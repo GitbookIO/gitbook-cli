@@ -27,15 +27,27 @@ function runPromise(p) {
     });
 }
 
+function printGitbookVersion(v) {
+    var actualVersion = (v.name != v.version)? ' ('+v.version+')' : '';
+    return v.name + actualVersion;
+}
 
 // Init gitbook-cli
 manager.init();
 
 program
-    .version(pkg.version)
     .option('-v, --gitbook [version]', 'specify GitBook version to use')
-    .option('-d, --debug', 'enable verbose error');
-
+    .option('-d, --debug', 'enable verbose error')
+    .option('-V, --version', 'Display running versions of gitbook and gitbook-cli', function() {
+        console.log('CLI version:', pkg.version);
+        runPromise(
+            manager.ensure(bookRoot, program.gitbook)
+            .then(function(v) {
+                console.log('GitBook version:', printGitbookVersion(v));
+                process.exit(0);
+            })
+        );
+    });
 
 program
     .command('ls')
@@ -69,7 +81,7 @@ program
         runPromise(
             manager.ensure(bookRoot, program.gitbook)
             .then(function(v) {
-                console.log('GitBook version is', v.name, (v.name != v.version? '('+v.version+')' : ''));
+                console.log('GitBook version is', printGitbookVersion(v));
             })
         );
     });

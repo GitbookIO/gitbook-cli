@@ -5,22 +5,22 @@
     "description": "CLI to generate books and documentation using gitbook",
     "main": "bin/gitbook.js",
     "dependencies": {
-        "q": "1.5.0",
-        "lodash": "4.17.4",
-        "semver": "5.3.0",
-        "npmi": "1.0.1",
-        "tmp": "0.0.31",
-        "commander": "2.11.0",
-        "optimist": "0.6.1",
-        "fs-extra": "3.0.1",
         "bash-color": "0.0.4",
+        "commander": "2.11.0",
+        "fs-extra": "^9.1.0",
+        "lodash": "4.17.4",
         "npm": "5.1.0",
+        "npmi": "1.0.1",
+        "optimist": "0.6.1",
+        "q": "1.5.0",
+        "semver": "5.3.0",
+        "tmp": "0.0.31",
         "user-home": "2.0.0"
     },
     "devDependencies": {
+        "gitbook": "2.5.0-beta.1",
         "mocha": "3.4.2",
-        "should": "11.2.1",
-        "gitbook": "2.5.0-beta.1"
+        "should": "11.2.1"
     },
     "scripts": {
         "test": "mocha --reporter spec --recursive --bail"

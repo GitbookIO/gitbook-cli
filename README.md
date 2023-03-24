@@ -93,7 +93,7 @@ Uninstall a specific version
 $ gitbook uninstall 2.0.1
 ```
 
-Use a local folder as a GitBook version (for developement)
+Use a local folder as a GitBook version (for development)
 
 ```
 $ gitbook alias ./mygitbook latest
